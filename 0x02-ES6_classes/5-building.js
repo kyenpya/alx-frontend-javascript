@@ -1,11 +1,18 @@
-import Building from './5-building';
+export default class Building {
+  constructor(sqft) {
+    if (typeof sqft !== 'number') {
+      throw new TypeError('Square footage must be a number');
+    }
+    this._sqft = sqft;
 
-const b = new Building(100);
-console.log(b);
-class TestBuilding extends Building {}
+    // Ensure that the subclass implements evacuationWarningMessage
+    if (this.constructor !== Building && !this.evacuationWarningMessage) {
+      throw new Error('Class extending Building must override evacuationWarningMessage');
+    }
+  }
 
-try {
-  const tb = new TestBuilding(200);   
-} catch (err) {
-  console.log(err);
+  // Getter for sqft
+  get sqft() {
+    return this._sqft;
+  }
 }
